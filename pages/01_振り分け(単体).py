@@ -596,7 +596,7 @@ def court_sorting(court_name,court_number):
     ###回数のみ
     ###################################
 
-   if point_min==1000 or all_point_max-all_point_min>=3:
+   if point_min==1000 or all_point_max-all_point_min>=10:
         count=0                  #4名カウントするための数字
         name_list_cache=[]       #一時的な名前保存
         point_cache=0            #一時的なポイント保存
