@@ -563,9 +563,10 @@ def court_sorting(court_name,court_number):
             break
         if ws_member.cell(row=number+2,column=7).value=="待機":
             if ws_member.cell(row=number+2,column=4).value>=2.5:
-                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                count1=count1+1
+                if ws_member.cell(row=number+2,column=4).value<=3.5:
+                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                    count1=count1+1
         if ws_member.cell(row=number+2,column=7).value=="待機":
             if ws_member.cell(row=number+2,column=4).value<=1.5:
                 name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
