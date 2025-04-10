@@ -592,6 +592,8 @@ def court_sorting(court_name,court_number):
         if ws_member.cell(row=number+2,column=7).value=="待機":
             all_point_max=ws_member.cell(row=number+2,column=8).value
 
+    all_point_max
+    all_point_min
     ###################################
     ###回数のみ
     ###################################
