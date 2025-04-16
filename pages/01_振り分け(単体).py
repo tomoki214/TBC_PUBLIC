@@ -207,7 +207,9 @@ def court_sorting(court_name,court_number):
         
         #結果的にシングルスの場合は2で割らない=2倍なので処理しない
         if count==4:
-            ave_level=ave_level/count
+            ave_level=ave_level/4
+        else:
+            ave_level=ave_level/2
         
         #ポイント追加
         for number in range(4):
@@ -215,9 +217,7 @@ def court_sorting(court_name,court_number):
                 point_add(name_list[number],ave_level/search_level(name_list[number]))          #ポイントを追加する
         #履歴追加
         history_add(name_list[0],name_list[1],name_list[2],name_list[3],court_name)         #履歴に記録する
-        #シングルスに対応していない
 
-   
    member_sort()    #ポイントが少ない人を上にする
 
    #変数定義
