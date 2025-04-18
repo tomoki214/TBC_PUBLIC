@@ -403,16 +403,18 @@ def court_sorting(court_name,court_number):
             if ws_member.cell(row=number+2,column=6).value==1:
                 if ws_member.cell(row=number+2,column=3).value=="男":
                     if ws_member.cell(row=number+2,column=4).value>=3.5:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count1=count1+1
+                        if count1<2:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            count1=count1+1
         if ws_member.cell(row=number+2,column=7).value=="待機":
             if ws_member.cell(row=number+2,column=6).value==1:
                 if ws_member.cell(row=number+2,column=3).value=="女":
                     if ws_member.cell(row=number+2,column=4).value>=3.5:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count2=count2+1
+                        if count2<2:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            count2=count2+1
 
     ###################################
     ###レベル3ミックスの選定
@@ -440,17 +442,19 @@ def court_sorting(court_name,court_number):
                 if ws_member.cell(row=number+2,column=3).value=="男":
                     if ws_member.cell(row=number+2,column=4).value>=2.5:
                         if ws_member.cell(row=number+2,column=4).value<=3.9:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                            count1=count1+1
+                            if count1<2:
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                count1=count1+1
         if ws_member.cell(row=number+2,column=7).value=="待機":
             if ws_member.cell(row=number+2,column=6).value==1:
                 if ws_member.cell(row=number+2,column=3).value=="女":
                     if ws_member.cell(row=number+2,column=4).value>=2.5:
                         if ws_member.cell(row=number+2,column=4).value<=3.9:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                            count2=count2+1
+                            if count2<2:
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                count2=count2+1
 
     ###################################
     ###レベル2ミックスの選定
@@ -477,16 +481,18 @@ def court_sorting(court_name,court_number):
             if ws_member.cell(row=number+2,column=6).value==1:
                 if ws_member.cell(row=number+2,column=3).value=="男":
                     if ws_member.cell(row=number+2,column=4).value<=2.5:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count1=count1+1
+                        if count1<2:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            count1=count1+1
         if ws_member.cell(row=number+2,column=7).value=="待機":
             if ws_member.cell(row=number+2,column=6).value==1:
                 if ws_member.cell(row=number+2,column=3).value=="女":
                     if ws_member.cell(row=number+2,column=4).value<=2.5:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count2=count2+1
+                        if count2<2:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            count2=count2+1
 
     ###################################
     ###レベル4シングルスの選定
