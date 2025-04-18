@@ -1,8 +1,7 @@
 
 ""
 "[使い方]"
-"待機は4名～6名程度。(休憩最大2名の想定)"
-
+"基本はランダムに設定すること"
 
 #
 #######################################################################
@@ -698,8 +697,8 @@ st.table(df)
 ##########################################################################################################
 #StandByとBreakのインターフェイス
 ##########################################################################################################
-stanby_member_original[0]["items"].clear()
-stanby_member_original[1]["items"].clear()
+#stanby_member_original[0]["items"].clear()
+#stanby_member_original[1]["items"].clear()
 
 for number in range(30):
     if ws_member.cell(row=(number+2),column=2).value!=None:
