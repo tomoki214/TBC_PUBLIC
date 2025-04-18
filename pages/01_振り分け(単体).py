@@ -228,7 +228,7 @@ def court_sorting(court_name,court_number):
     ###################################
     ###レベル4男子ダブルスの選定
     ###################################
-
+   mode
    count=0                  #4名カウントするための数字
    name_list_cache=[]       #一時的な名前保存
    point_cache=0            #一時的なポイント保存
