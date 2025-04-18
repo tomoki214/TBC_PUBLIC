@@ -26,7 +26,7 @@ ws_court=wb["court"]
 #定義
 ##########################################################################################################
 
-ADJUSTMENT_NUMBER=10
+ADJUSTMENT_NUMBER=1
 
 stanby_member_original=[
     {'header':'待機','items':[]},
