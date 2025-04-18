@@ -674,7 +674,6 @@ if col2.button("Bコート",use_container_width=True):
 if col3.button("Cコート",use_container_width=True):
     court_sorting("Cコート",3)
 
-"ああああ"
 col4,col5,col6=st.columns(3)
 if col4.button("Aコートを空にする",use_container_width=True):
     court_clear("Aコート",1)
