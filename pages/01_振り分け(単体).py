@@ -26,8 +26,6 @@ ws_court=wb["court"]
 #定義
 ##########################################################################################################
 
-mode="ダブルス"
-
 stanby_member_original=[
     {'header':'待機','items':[]},
     {'header':'休憩','items':[]},
@@ -237,7 +235,7 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
-            if mode="ダブルス":
+            if mode=="ダブルス":
                 point_cache=point_cache+1
                 mode
             if point_cache<point_min:
@@ -263,7 +261,7 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
-            if mode="ダブルス":
+            if mode=="ダブルス":
                 point_cache=point_cache+1
                 "ダブルス"
             if point_cache<point_min:
@@ -289,7 +287,7 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
-            if mode="ダブルス":
+            if mode=="ダブルス":
                 point_cache=point_cache+1
                 "ダブルス"
             if point_cache<point_min:
@@ -316,7 +314,7 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
-            if mode="ダブルス":
+            if mode=="ダブルス":
                 point_cache=point_cache+1
                 "ダブルス"
             if point_cache<point_min:
@@ -343,7 +341,7 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
-            if mode="ダブルス":
+            if mode=="ダブルス":
                 point_cache=point_cache+1
                 "ダブルス"
             if point_cache<point_min:
@@ -369,7 +367,7 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
-            if mode="ダブルス":
+            if mode=="ダブルス":
                 point_cache=point_cache+1
                 "ダブルス"
             if point_cache<point_min:
