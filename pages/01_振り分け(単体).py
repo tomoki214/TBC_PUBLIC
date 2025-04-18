@@ -314,6 +314,9 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
+            if mode="ダブルス":
+                point_cache=point_cache+1
+                "ダブルス"
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -338,6 +341,9 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
+            if mode="ダブルス":
+                point_cache=point_cache+1
+                "ダブルス"
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -361,6 +367,9 @@ def court_sorting(court_name,court_number):
    for number in range(30):
         #キャッシュデータの更新
         if count>=4:
+            if mode="ダブルス":
+                point_cache=point_cache+1
+                "ダブルス"
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
