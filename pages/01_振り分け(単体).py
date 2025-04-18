@@ -227,8 +227,7 @@ def court_sorting(court_name,court_number):
     ###################################
     ###レベル4男子ダブルスの選定
     ###################################
-
-   "a"
+    
    count=0                  #4名カウントするための数字
    name_list_cache=[]       #一時的な名前保存
    point_cache=0            #一時的なポイント保存
@@ -396,6 +395,9 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count1>=2:
             if count2>=2:
+                if mode=="ミックス":
+                point_cache=point_cache+1
+                "ミックス"
                 if point_cache<point_min:
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
@@ -430,6 +432,9 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count1>=2:
             if count2>=2:
+                if mode=="ミックス":
+                point_cache=point_cache+1
+                "ミックス"
                 if point_cache<point_min:
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
@@ -466,6 +471,9 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count1>=2:
             if count2>=2:
+                if mode=="ミックス":
+                point_cache=point_cache+1
+                "ミックス"
                 if point_cache<point_min:
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
