@@ -703,9 +703,7 @@ stanby_member_original[1]["items"].clear()
 for number in range(30):
     if ws_member.cell(row=(number+2),column=2).value!=None:
         if(ws_member.cell(row=(number+2),column=7).value=="待機"):
-            #stanby_member_original[0]["items"].append(ws_member.cell(row=(number+2),column=2).value)
-            stanby_member_original[0]["items"].append(f'<span style="color:coral">{ws_member.cell(row=(number+2),column=2).value}</span>')
-            
+            stanby_member_original[0]["items"].append(ws_member.cell(row=(number+2),column=2).value)
         if(ws_member.cell(row=(number+2),column=7).value=="休憩"):
             stanby_member_original[1]["items"].append(ws_member.cell(row=(number+2),column=2).value)
     else:
