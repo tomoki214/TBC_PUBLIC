@@ -26,7 +26,7 @@ ws_court=wb["court"]
 #定義
 ##########################################################################################################
 
-ADJUSTMENT=10
+ADJUSTMENT_NUMBER=10
 
 stanby_member_original=[
     {'header':'待機','items':[]},
@@ -237,7 +237,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=4:
             if mode=="ダブルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -262,7 +262,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=4:
             if mode=="ダブルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -287,7 +287,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=4:
             if mode=="ダブルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -313,7 +313,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=4:
             if mode=="ダブルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -339,7 +339,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=4:
             if mode=="ダブルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -364,7 +364,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=4:
             if mode=="ダブルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -392,7 +392,7 @@ def court_sorting(court_name,court_number):
         if count1>=2:
             if count2>=2:
                 if mode=="ミックス":
-                    point_cache=point_cache-ADJUSTMENT
+                    point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
@@ -428,7 +428,7 @@ def court_sorting(court_name,court_number):
         if count1>=2:
             if count2>=2:
                 if mode=="ミックス":
-                    point_cache=point_cache-ADJUSTMENT
+                    point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
@@ -466,7 +466,7 @@ def court_sorting(court_name,court_number):
         if count1>=2:
             if count2>=2:
                 if mode=="ミックス":
-                    point_cache=point_cache-ADJUSTMENT
+                    point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
@@ -500,7 +500,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=2:
             if mode=="シングルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if (point_cache*2)<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -526,7 +526,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=2:
             if mode=="シングルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if (point_cache*2)<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
@@ -553,7 +553,7 @@ def court_sorting(court_name,court_number):
         #キャッシュデータの更新
         if count>=2:
             if mode=="シングルス":
-                point_cache=point_cache-ADJUSTMENT
+                point_cache=point_cache-ADJUSTMENT_NUMBER
             if (point_cache*2)<point_min:
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
