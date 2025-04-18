@@ -642,7 +642,7 @@ def court_clear(court_name,court_number):
     wb.save("data.xlsx")
                            
 
-st.selectbox('モードを選択してください',['ランダム','ダブルス'.'シングルス','ミックス'],index=0)
+mode=st.selectbox('モードを選択してください',['ランダム','ダブルス'.'シングルス','ミックス'],index=0)
 
 col1,col2,col3=st.columns(3)
 if col1.button("Aコート",use_container_width=True):
