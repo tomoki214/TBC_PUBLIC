@@ -224,12 +224,11 @@ def court_sorting(court_name,court_number):
    name_list_candidate=["","","",""]   #候補者の名前保存
    point_min=1000              #候補者のポイント保存
 
-    print(mode)
-
     ###################################
     ###レベル4男子ダブルスの選定
     ###################################
 
+   "a"
    count=0                  #4名カウントするための数字
    name_list_cache=[]       #一時的な名前保存
    point_cache=0            #一時的なポイント保存
