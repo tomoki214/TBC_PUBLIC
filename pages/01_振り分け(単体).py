@@ -217,7 +217,8 @@ def court_sorting(court_name,court_number):
             if search_level(name_list[number])!=0:
                 point_add(name_list[number],ave_level/search_level(name_list[number]))          #ポイントを追加する
         #履歴追加
-        history_add(name_list[0],name_list[1],name_list[2],name_list[3],court_name)         #履歴に記録する
+        if court_name=="Aコート":
+            history_add(name_list[0],name_list[1],name_list[2],name_list[3],"A")         #履歴に記録する
 
    member_sort()    #ポイントが少ない人を上にする
 
