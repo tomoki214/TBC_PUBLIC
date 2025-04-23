@@ -98,6 +98,8 @@ if col1.button("当日データの初期化",use_container_width=True):
             ws_member.cell(row=count+2,column=9,value=0)#回数
             count=count+1
 
+    wb.save("data.xlsx")
+    
     #コートの初期化
     for row in ws_court:
         for cell in row :
@@ -107,6 +109,8 @@ if col1.button("当日データの初期化",use_container_width=True):
     ws_court.cell(row=1,column=2,value="Bコート")
     ws_court.cell(row=1,column=3,value="Cコート")
 
+    wb.save("data.xlsx")
+    
     #履歴の初期化
     for row in ws_history:
         for cell in row :
