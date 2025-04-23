@@ -680,9 +680,15 @@ if col1.button("Aコート",use_container_width=True):
     else:
         court_sorting("Aコート",1)
 if col2.button("Bコート",use_container_width=True):
-    court_sorting("Bコート",2)
+    if mode=="コートを空にする":
+        court_clear("Bコート",2)
+    else:
+        court_sorting("Bコート",2)
 if col3.button("Cコート",use_container_width=True):
-    court_sorting("Cコート",3)
+    if mode=="コートを空にする":
+        court_clear("Cコート",3)
+    else:
+        court_sorting("Cコート",3)
 
 #col4,col5,col6=st.columns(3)
 #if col4.button("Aコートを空にする",use_container_width=True):
