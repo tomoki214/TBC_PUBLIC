@@ -671,7 +671,7 @@ def court_clear(court_name,court_number):
             ws_member.cell(row=number+2,column=7,value="待機")
     wb.save("data.xlsx")
                            
-mode=st.selectbox('優先する組み合わせを選択してください',['ランダム','ダブルス','シングルス','ミックス','回数優先','コートを空にする'])
+mode=st.selectbox('アクションを選択してください。',['ランダム','ダブルス','ミックス','シングルス','回数優先','コートを空にする'])
 
 col1,col2,col3=st.columns(3)
 if col1.button("Aコート",use_container_width=True):
