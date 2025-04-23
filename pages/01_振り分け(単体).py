@@ -671,23 +671,26 @@ def court_clear(court_name,court_number):
             ws_member.cell(row=number+2,column=7,value="待機")
     wb.save("data.xlsx")
                            
-mode=st.selectbox('優先する組み合わせを選択してください',['ランダム','ダブルス','シングルス','ミックス','回数優先'])
+mode=st.selectbox('優先する組み合わせを選択してください',['ランダム','ダブルス','シングルス','ミックス','回数優先','コートを空にする'])
 
 col1,col2,col3=st.columns(3)
 if col1.button("Aコート",use_container_width=True):
-    court_sorting("Aコート",1)
+    if mode=="コートを空にする":
+        court_clear("Aコート",1)
+    else:
+        court_sorting("Aコート",1)
 if col2.button("Bコート",use_container_width=True):
     court_sorting("Bコート",2)
 if col3.button("Cコート",use_container_width=True):
     court_sorting("Cコート",3)
 
-col4,col5,col6=st.columns(3)
-if col4.button("Aコートを空にする",use_container_width=True):
-    court_clear("Aコート",1)
-if col5.button("Bコートを空にする",use_container_width=True):
-    court_clear("Bコート",2)
-if col6.button("Cコートを空にする",use_container_width=True):
-    court_clear("Cコート",3)
+#col4,col5,col6=st.columns(3)
+#if col4.button("Aコートを空にする",use_container_width=True):
+#    court_clear("Aコート",1)
+#if col5.button("Bコートを空にする",use_container_width=True):
+#    court_clear("Bコート",2)
+#if col6.button("Cコートを空にする",use_container_width=True):
+#    court_clear("Cコート",3)
 
 df = pd.read_excel(r'data.xlsx',sheet_name='court')
 st.table(df)
