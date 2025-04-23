@@ -605,7 +605,7 @@ def court_sorting(court_name,court_number):
     
 
     ###################################
-    ###全体のポイント差を計算する
+    ###全体のポイント差を計算する⇒回数優先で検索するため不要になった
     ###################################
    all_point_max=0
    all_point_min=1000
@@ -627,7 +627,7 @@ def court_sorting(court_name,court_number):
     ###回数のみ
     ###################################
 
-   if point_min==1000 or all_point_max-all_point_min>=10:
+   if mode=="回数優先":
         count=0                  #4名カウントするための数字
         name_list_cache=[]       #一時的な名前保存
         point_cache=0            #一時的なポイント保存
@@ -671,7 +671,7 @@ def court_clear(court_name,court_number):
             ws_member.cell(row=number+2,column=7,value="待機")
     wb.save("data.xlsx")
                            
-mode=st.selectbox('優先する組み合わせを選択してください',['ランダム','ダブルス','シングルス','ミックス'])
+mode=st.selectbox('優先する組み合わせを選択してください',['ランダム','ダブルス','シングルス','ミックス','回数優先'])
 
 col1,col2,col3=st.columns(3)
 if col1.button("Aコート",use_container_width=True):
