@@ -62,14 +62,14 @@ for number in range(500):
             
         if ws_base_parameter.cell(row=number+2,column=3).value=="男":
             if ws_base_parameter.cell(row=number+2,column=2).value.startswith("🔵")==False:
-                df["名前"]="🔵"+ws_base_parameter.cell(row=number+2,column=2).value
+                df_cache["名前"]="🔵"+ws_base_parameter.cell(row=number+2,column=2).value
             else:
-                df["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
+                df_cache["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
         else:
             if ws_base_parameter.cell(row=number+2,column=2).value.startswith("🔴")==False:
-                df["名前"]="🔴"+ws_base_parameter.cell(row=number+2,column=2).value
+                df_cache["名前"]="🔴"+ws_base_parameter.cell(row=number+2,column=2).value
             else:
-                df["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
+                df_cache["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
         
         df_cache["性別"]=ws_base_parameter.cell(row=number+2,column=3).value
         df_cache["レベル"]=ws_base_parameter.cell(row=number+2,column=4).value
