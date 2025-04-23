@@ -40,7 +40,10 @@ for number in range(500):
             else:
                 df["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
         else:
-            df["名前"]="🔴"+ws_base_parameter.cell(row=number+2,column=2).value
+            if ws_base_parameter.cell(row=number+2,column=2).value.startswith("🔴")==False:
+                df["名前"]="🔴"+ws_base_parameter.cell(row=number+2,column=2).value
+            else:
+                df["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
         df["性別"]=ws_base_parameter.cell(row=number+2,column=3).value
         df["レベル"]=ws_base_parameter.cell(row=number+2,column=4).value
         if ws_base_parameter.cell(row=number+2,column=5).value=="〇":
@@ -58,9 +61,15 @@ for number in range(500):
             df_cache["参加"]=False
 
         if ws_base_parameter.cell(row=number+2,column=3).value=="男":
-            df_cache["名前"]="🔵"+ws_base_parameter.cell(row=number+2,column=2).value
+            if ws_base_parameter.cell(row=number+2,column=2).value.startswith("🔵")==False:
+                df["名前"]="🔵"+ws_base_parameter.cell(row=number+2,column=2).value
+            else:
+                df["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
         else:
-            df_cache["名前"]="🔴"+ws_base_parameter.cell(row=number+2,column=2).value
+            if ws_base_parameter.cell(row=number+2,column=2).value.startswith("🔴")==False:
+                df["名前"]="🔴"+ws_base_parameter.cell(row=number+2,column=2).value
+            else:
+                df["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
         
         df_cache["性別"]=ws_base_parameter.cell(row=number+2,column=3).value
         df_cache["レベル"]=ws_base_parameter.cell(row=number+2,column=4).value
