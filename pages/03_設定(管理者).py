@@ -35,7 +35,7 @@ for number in range(500):
             df["参加"]=False
 
         if ws_base_parameter.cell(row=number+2,column=3).value=="男":
-            if ws_base_parameter.cell(row=number+2,column=2).value.startswith("🔵")==false:
+            if ws_base_parameter.cell(row=number+2,column=2).value.startswith("🔵")==False:
                 df["名前"]="🔵"+ws_base_parameter.cell(row=number+2,column=2).value
             else:
                 df["名前"]=ws_base_parameter.cell(row=number+2,column=2).value
