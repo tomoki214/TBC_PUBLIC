@@ -126,10 +126,12 @@ if col1.button("当日データの初期化",use_container_width=True):
         for cell in row :
             cell.value = None
 
-    ws_court.cell(row=1,column=1,value="Aコート")
-    ws_court.cell(row=1,column=2,value="Bコート")
-    ws_court.cell(row=1,column=3,value="Cコート")
-
+    ws_court.cell(row=1,column=1,value="勝者A")
+    ws_court.cell(row=1,column=2,value="Aコート")
+    ws_court.cell(row=1,column=3,value="勝者B")
+    ws_court.cell(row=1,column=4,value="Bコート")
+    ws_court.cell(row=1,column=5,value="勝者C")
+    ws_court.cell(row=1,column=6,value="Cコート")
     wb.save("data.xlsx")
     
     #履歴の初期化
