@@ -30,6 +30,8 @@ for number in range(30):
     if number==0:
         df["名前"]=ws_member.cell(row=number+2,column=2).value
         df["性別"]=ws_member.cell(row=number+2,column=3).value
+        df["ポイント"]=ws_member.cell(row=number+2,column=8).value
+        df["回数"]=ws_member.cell(row=number+2,column=9).value
         if ws_member.cell(row=number+2,column=5).value==1:
             df["シングルス"]=True
         else:
@@ -41,6 +43,8 @@ for number in range(30):
     else:
         df_cache["名前"]=ws_member.cell(row=number+2,column=2).value
         df_cache["性別"]=ws_member.cell(row=number+2,column=3).value
+        df_cache["ポイント"]=ws_member.cell(row=number+2,column=8).value
+        df_cache["回数"]=ws_member.cell(row=number+2,column=9).value
         if ws_member.cell(row=number+2,column=5).value==1:
             df_cache["シングルス"]=True
         else:
@@ -50,7 +54,7 @@ for number in range(30):
         else:
             df_cache["ミックス"]=False
 
-        df=pd.concat([df,df_cache])    
+        df=pd.concat([df,df_cache],ignore_index=True)    
 
 edited_df = st.data_editor(df,use_container_width=True,hide_index=True,height=600)
 
@@ -63,9 +67,11 @@ if col2.button("セーブ",use_container_width=True):
             #名前が一致したら上書き修正
             if edited_df.iat[number1,0]==ws_member.cell(row=number2+2,column=2).value:
                 ws_member.cell(row=number2+2,column=2,value=edited_df.iat[number1,0])#名前
-                ws_member.cell(row=number2+2,column=3,value=edited_df.iat[number1,1])#性別
-                ws_member.cell(row=number2+2,column=5,value=edited_df.iat[number1,2])#シングルス
-                ws_member.cell(row=number2+2,column=6,value=edited_df.iat[number1,3])#ミックス
+                ws_member.cell(row=number2+2,column=8,value=edited_df.iat[number1,1])#性別
+                ws_member.cell(row=number2+2,column=9,value=edited_df.iat[number1,2])#ポイント
+                ws_member.cell(row=number2+2,column=3,value=edited_df.iat[number1,3])#回数
+                ws_member.cell(row=number2+2,column=5,value=edited_df.iat[number1,4])#シングルス
+                ws_member.cell(row=number2+2,column=6,value=edited_df.iat[number1,5])#ミックス
                 break
 
     wb.save("data.xlsx")
