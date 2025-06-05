@@ -29,8 +29,8 @@ ADJUSTMENT_NUMBER=10        #優先された場合に利用
 LOSE_ADD_POINT=0.3          #負けた時の加算ポイント
 CAL_ADD_POINT=1             #中間レベルの開催ロジックの傾斜
 
-ALL_CAL_ADD_POINT1=8        #回数差が出過ぎた時の調整用ポイント1
-ALL_CAL_ADD_POINT2=12       #回数差が出過ぎた時の調整用ポイント2
+ALL_CAL_ADD_POINT1=4        #回数差が出過ぎた時の調整用ポイント1
+ALL_CAL_ADD_POINT2=8        #回数差が出過ぎた時の調整用ポイント2
 
 stanby_member_original=[
     {'header':'待機','items':[]},
