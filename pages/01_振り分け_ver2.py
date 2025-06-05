@@ -25,9 +25,12 @@ ws_court=wb["court"]
 #定義
 ##########################################################################################################
 
-ADJUSTMENT_NUMBER=10    #優先された場合に利用
-LOSE_ADD_POINT=0.3      #負けた時の加算ポイント
-CAL_ADD_POINT=1       #中間レベルの開催ロジックの傾斜
+ADJUSTMENT_NUMBER=10        #優先された場合に利用
+LOSE_ADD_POINT=0.3          #負けた時の加算ポイント
+CAL_ADD_POINT=1             #中間レベルの開催ロジックの傾斜
+
+ALL_CAL_ADD_POINT1=8        #回数差が出過ぎた時の調整用ポイント1
+ALL_CAL_ADD_POINT2=12       #回数差が出過ぎた時の調整用ポイント2
 
 stanby_member_original=[
     {'header':'待機','items':[]},
@@ -246,10 +249,12 @@ def court_sorting(court_name,court_number):
    name_list_candidate=["","","",""]   #候補者の名前保存
    point_min=1000              #候補者のポイント保存
 
+   court_level=""
+
     ###################################
     ###上級男子ダブルスの選定
     ###################################
-    
+
    count=0                  #4名カウントするための数字
    name_list_cache=[]       #一時的な名前保存
    point_cache=0            #一時的なポイント保存
@@ -259,6 +264,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="上級/男子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -284,6 +290,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="上級/女子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -309,6 +316,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="中級/男子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -335,6 +343,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="中級/女子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -361,6 +370,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="初級/男子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -387,6 +397,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="初級/女子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -413,6 +424,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="初心者/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -440,6 +452,7 @@ def court_sorting(court_name,court_number):
                 if mode=="ミックス":
                     point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
+                    court_level="上級/ミックス"
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
@@ -478,6 +491,7 @@ def court_sorting(court_name,court_number):
                 if mode=="ミックス":
                     point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
+                    court_level="中級/ミックス"
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
@@ -518,6 +532,7 @@ def court_sorting(court_name,court_number):
                 if mode=="ミックス":
                     point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
+                    court_level="初級/ミックス"
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
@@ -556,6 +571,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="中上級/男子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -582,6 +598,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="中上級/女子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -609,6 +626,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="初中級/男子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -636,6 +654,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="初中級/女子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -664,6 +683,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="初初級/男子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -690,6 +710,7 @@ def court_sorting(court_name,court_number):
             if mode=="ダブルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if point_cache<point_min:
+                court_level="初初級/女子/ダブルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -720,6 +741,7 @@ def court_sorting(court_name,court_number):
                 if mode=="ミックス":
                     point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
+                    court_level="中上級/ミックス"
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
@@ -759,6 +781,7 @@ def court_sorting(court_name,court_number):
                 if mode=="ミックス":
                     point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
+                    court_level="初中級/ミックス"
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
@@ -800,6 +823,7 @@ def court_sorting(court_name,court_number):
                 if mode=="ミックス":
                     point_cache=point_cache-ADJUSTMENT_NUMBER
                 if point_cache<point_min:
+                    court_level="初初級/ミックス"
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
@@ -838,6 +862,7 @@ def court_sorting(court_name,court_number):
             if mode=="シングルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if (point_cache*2)<point_min:
+                court_level="上級/シングルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -864,6 +889,7 @@ def court_sorting(court_name,court_number):
             if mode=="シングルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if (point_cache*2)<point_min:
+                court_level="中級/シングルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -891,6 +917,7 @@ def court_sorting(court_name,court_number):
             if mode=="シングルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if (point_cache*2)<point_min:
+                court_level="初級/シングルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -920,6 +947,7 @@ def court_sorting(court_name,court_number):
             if mode=="シングルス":
                 point_cache=point_cache-ADJUSTMENT_NUMBER
             if (point_cache*2)<point_min:
+                court_level="中上級/シングルス"
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
@@ -932,6 +960,107 @@ def court_sorting(court_name,court_number):
                     point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
                     count=count+1
 
+    ###################################
+    ###初/中級シングルスの選定
+    ###################################
+
+   name_list_cache=[]       #一時的な名前保存
+   point_cache=0            #一時的なポイント保存
+   count=0                 #男のカウント
+
+   for number in range(30):
+        #キャッシュデータの更新
+        if count>=2:
+            point_cache=point_cache+CAL_ADD_POINT
+            if mode=="シングルス":
+                point_cache=point_cache-ADJUSTMENT_NUMBER
+            if (point_cache*2)<point_min:
+                court_level="初中級/シングルス"
+                point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
+                name_list_candidate=copy.deepcopy(name_list_cache)
+                break
+        if ws_member.cell(row=number+2,column=4).value==None:
+            break
+        if ws_member.cell(row=number+2,column=7).value=="待機":
+            if ws_member.cell(row=number+2,column=5).value==1:
+                if ws_member.cell(row=number+2,column=4).value<=2.8:
+                    if ws_member.cell(row=number+2,column=4).value>=3.7:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                        count=count+1
+
+
+
+    ###################################
+    ###全体(上)ダブルスの選定
+    ###################################
+
+   count=0                  #4名カウントするための数字
+   name_list_cache=[]       #一時的な名前保存
+   point_cache=0            #一時的なポイント保存
+   for number in range(30):
+        #キャッシュデータの更新
+        if count>=4:
+            point_cache=point_cache+ALL_CAL_ADD_POINT1
+            if point_cache<point_min:
+                court_level="全体/ダブルス1"
+                point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
+                name_list_candidate=copy.deepcopy(name_list_cache)
+                break
+        if ws_member.cell(row=number+2,column=4).value==None:
+            break
+        if ws_member.cell(row=number+2,column=7).value=="待機":
+            if ws_member.cell(row=number+2,column=4).value>=2.8:
+                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                count=count+1
+
+    ###################################
+    ###全体(下)ダブルスの選定
+    ###################################
+
+   count=0                  #4名カウントするための数字
+   name_list_cache=[]       #一時的な名前保存
+   point_cache=0            #一時的なポイント保存
+   for number in range(30):
+        #キャッシュデータの更新
+        if count>=4:
+            point_cache=point_cache+ALL_CAL_ADD_POINT1
+            if point_cache<point_min:
+                court_level="全体/ダブルス2"
+                point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
+                name_list_candidate=copy.deepcopy(name_list_cache)
+                break
+        if ws_member.cell(row=number+2,column=4).value==None:
+            break
+        if ws_member.cell(row=number+2,column=7).value=="待機":
+            if ws_member.cell(row=number+2,column=4).value<=3.7:
+                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                count=count+1
+
+    ###################################
+    ###全体ダブルスの選定
+    ###################################
+
+   count=0                  #4名カウントするための数字
+   name_list_cache=[]       #一時的な名前保存
+   point_cache=0            #一時的なポイント保存
+   for number in range(30):
+        #キャッシュデータの更新
+        if count>=4:
+            point_cache=point_cache+ALL_CAL_ADD_POINT2
+            if point_cache<point_min:
+                court_level="全体/ダブルス3"
+                point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
+                name_list_candidate=copy.deepcopy(name_list_cache)
+                break
+        if ws_member.cell(row=number+2,column=4).value==None:
+            break
+        if ws_member.cell(row=number+2,column=7).value=="待機":
+            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
+            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+            count=count+1
 
     ###################################
     ###指導バドの選定
@@ -948,6 +1077,7 @@ def court_sorting(court_name,court_number):
             if count2>=2:
                 point_cache=point_cache+CAL_ADD_POINT
                 if point_cache<point_min:
+                    court_level="指導/ダブルス"
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
@@ -977,6 +1107,7 @@ def court_sorting(court_name,court_number):
                 #キャッシュデータの更新
                 if count>=4:
                     if point_cache<point_min:
+                        court_level="回数/ダブルス"
                         point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                         name_list_candidate=copy.deepcopy(name_list_cache)
                         break
@@ -986,6 +1117,7 @@ def court_sorting(court_name,court_number):
                     name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
                     point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
                     count=count+1
+
 
     #決定した条件でシートを更新する。
    for number in range(4):
@@ -998,6 +1130,7 @@ def court_sorting(court_name,court_number):
             ws_court.cell(row=number+2,column=court_number,value="")            #courtシートの更新
             ws_court.cell(row=number+2,column=court_number-1,value=False)       #★ここで左隣をfalseにしたい。
    wb.save("data.xlsx")
+   #st.write(court_level)
 
 
 def court_clear(court_name,court_number):
