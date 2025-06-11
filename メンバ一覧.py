@@ -5,7 +5,6 @@
 #[機能]
 #base_paramaterのシートの部分の編集
 #参加者の決定、memberシートの更新
-
 ##########################################################################################################
 
 import streamlit as st
@@ -13,6 +12,8 @@ import pandas as pd
 
 #エクセル操作
 import openpyxl
+
+st.image(".\OpenChat.png")
 
 wb=openpyxl.load_workbook("data.xlsx",data_only=True)
 ws_member=wb["member"]
@@ -68,9 +69,9 @@ if col2.button("セーブ",use_container_width=True):
             #名前が一致したら上書き修正
             if edited_df.iat[number1,0]==ws_member.cell(row=number2+2,column=2).value:
                 ws_member.cell(row=number2+2,column=2,value=edited_df.iat[number1,0])#名前
-                ws_member.cell(row=number2+2,column=8,value=edited_df.iat[number1,1])#性別
-                ws_member.cell(row=number2+2,column=9,value=edited_df.iat[number1,2])#ポイント
-                ws_member.cell(row=number2+2,column=3,value=edited_df.iat[number1,3])#回数
+                ws_member.cell(row=number2+2,column=3,value=edited_df.iat[number1,1])#性別
+                ws_member.cell(row=number2+2,column=8,value=edited_df.iat[number1,2])#ポイント
+                ws_member.cell(row=number2+2,column=9,value=edited_df.iat[number1,3])#回数
                 ws_member.cell(row=number2+2,column=5,value=edited_df.iat[number1,4])#シングルス
                 ws_member.cell(row=number2+2,column=6,value=edited_df.iat[number1,5])#ミックス
                 break
