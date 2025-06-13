@@ -13,7 +13,7 @@ import pandas as pd
 #エクセル操作
 import openpyxl
 
-st.image("OpenChat.png")
+st.image(".\OpenChat.png")
 
 wb=openpyxl.load_workbook("data.xlsx",data_only=True)
 ws_member=wb["member"]
