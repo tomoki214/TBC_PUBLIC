@@ -26,6 +26,51 @@ ws_court=wb["court"]
 #定義
 ##########################################################################################################
 
+#############################
+#ベースパラメータシートの列定義
+#############################
+BASEPARAMETER_ATTENDANCE_COLUMN=1
+BASEPARAMETER_NAME_COLUMN=2
+BASEPARAMETER_SEX_COLUMN=3
+BASEPARAMETER_LEVEL_COLUMN=4
+BASEPARAMETER_DOUBLES_COLUMN=5
+BASEPARAMETER_SINGLES_COLUMN=6
+BASEPARAMETER_MIXED_COLUMN=7
+
+#############################
+#メンバーシートの列定義
+#############################
+MEMBER_ATTENDANCE_COLUMN=1      #置換完了
+MEMBER_NAME_COLUMN=2            #置換完了
+MEMBER_SEX_COLUMN=3             #途中
+MEMBER_LEVEL_COLUMN=4
+MEMBER_DOUBLES_COLUMN=5
+MEMBER_SINGLES_COLUMN=6
+MEMBER_MIXED_COLUMN=7
+MEMBER_STATUS_COLUMN=8
+MEMBER_POINT_COLUMN=9
+MEMBER_NOT_COLUMN=10
+
+#############################
+#ヒストリーシートの列定義
+#############################
+HISTORY_NAME1_COLUMN=1
+HISTORY_NAME2_COLUMN=2
+HISTORY_NAME3_COLUMN=3
+HISTORY_NAME4_COLUMN=4
+HISTORY_COURT_COLUMN=5
+
+#############################
+#コートシートの列定義(変数で使われているところが多いため、ここの編集だけでは不可)
+#############################
+COURT_WINLOSEA_COLUMN=1
+COURT_NAMEA_COLUMN=2
+COURT_WINLOSEB_COLUMN=3
+COURT_NAMEB_COLUMN=4
+COURT_WINLOSEC_COLUMN=5
+COURT_NAMEC_COLUMN=6
+
+
 ADJUSTMENT_NUMBER=10        #優先された場合に利用
 LOSE_ADD_POINT=0.3          #負けた時の加算ポイント
 CAL_ADD_POINT=1             #中間レベルの開催ロジックの傾斜
@@ -69,45 +114,50 @@ custom_style = """
 ###########################################
 def member_sort():
     for i in range(30):
-        if ws_member.cell(row=i+1,column=2).value==None:
+        if ws_member.cell(row=i+1,column=MEMBER_NAME_COLUMN).value==None:
             break
         else:
-            min_value=ws_member.cell(row=i+2,column=8).value
+            min_value=ws_member.cell(row=i+2,column=MEMBER_POINT_COLUMN).value    #最小のポイントを返す
 
         for number in range(30):
             j=number+i
-            if ws_member.cell(row=j+2,column=2).value==None:
+            if ws_member.cell(row=j+2,column=MEMBER_NAME_COLUMN).value==None:
                 break
             else:
-                if ws_member.cell(row=j+2,column=8).value<min_value:
-                    swap1=ws_member.cell(row=j+2,column=1).value
-                    swap2=ws_member.cell(row=j+2,column=2).value
-                    swap3=ws_member.cell(row=j+2,column=3).value
-                    swap4=ws_member.cell(row=j+2,column=4).value
-                    swap5=ws_member.cell(row=j+2,column=5).value
-                    swap6=ws_member.cell(row=j+2,column=6).value
-                    swap7=ws_member.cell(row=j+2,column=7).value
-                    swap8=ws_member.cell(row=j+2,column=8).value
-                    swap9=ws_member.cell(row=j+2,column=9).value
-                    ws_member.cell(row=j+2,column=1,value=ws_member.cell(row=i+2,column=1).value)
-                    ws_member.cell(row=j+2,column=2,value=ws_member.cell(row=i+2,column=2).value)
-                    ws_member.cell(row=j+2,column=3,value=ws_member.cell(row=i+2,column=3).value)
-                    ws_member.cell(row=j+2,column=4,value=ws_member.cell(row=i+2,column=4).value)
-                    ws_member.cell(row=j+2,column=5,value=ws_member.cell(row=i+2,column=5).value)
-                    ws_member.cell(row=j+2,column=6,value=ws_member.cell(row=i+2,column=6).value)
-                    ws_member.cell(row=j+2,column=7,value=ws_member.cell(row=i+2,column=7).value)
-                    ws_member.cell(row=j+2,column=8,value=ws_member.cell(row=i+2,column=8).value)
-                    ws_member.cell(row=j+2,column=9,value=ws_member.cell(row=i+2,column=9).value)
-                    ws_member.cell(row=i+2,column=1,value=swap1)
-                    ws_member.cell(row=i+2,column=2,value=swap2)
-                    ws_member.cell(row=i+2,column=3,value=swap3)
-                    ws_member.cell(row=i+2,column=4,value=swap4)
-                    ws_member.cell(row=i+2,column=5,value=swap5)
-                    ws_member.cell(row=i+2,column=6,value=swap6)
-                    ws_member.cell(row=i+2,column=7,value=swap7)
-                    ws_member.cell(row=i+2,column=8,value=swap8)
-                    ws_member.cell(row=i+2,column=9,value=swap9)
-                    min_value=swap8
+                if ws_member.cell(row=j+2,column=MEMBER_POINT_COLUMN).value<min_value:
+                    swap1=ws_member.cell(row=j+2,column=MEMBER_ATTENDANCE_COLUMN).value
+                    swap2=ws_member.cell(row=j+2,column=MEMBER_NAME_COLUMN).value
+                    swap3=ws_member.cell(row=j+2,column=MEMBER_SEX_COLUMN).value
+                    swap4=ws_member.cell(row=j+2,column=MEMBER_LEVEL_COLUMN).value
+                    swap5=ws_member.cell(row=j+2,column=MEMBER_DOUBLES_COLUMN).value
+                    swap6=ws_member.cell(row=j+2,column=MEMBER_SINGLES_COLUMN).value
+                    swap7=ws_member.cell(row=j+2,column=MEMBER_MIXED_COLUMN).value
+                    swap8=ws_member.cell(row=j+2,column=MEMBER_STATUS_COLUMN).value
+                    swap9=ws_member.cell(row=j+2,column=MEMBER_POINT_COLUMN).value
+                    swap10=ws_member.cell(row=j+2,column=MEMBER_NOT_COLUMN).value
+                    
+                    ws_member.cell(row=j+2,column=MEMBER_ATTENDANCE_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_ATTENDANCE_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_NAME_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_NAME_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_SEX_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_SEX_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_LEVEL_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_LEVEL_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_DOUBLES_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_DOUBLES_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_SINGLES_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_SINGLES_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_MIXED_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_MIXED_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_STATUS_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_STATUS_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_POINT_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_POINT_COLUMN).value)
+                    ws_member.cell(row=j+2,column=MEMBER_NOT_COLUMN,value=ws_member.cell(row=i+2,column=MEMBER_NOT_COLUMN).value)
+
+                    ws_member.cell(row=i+2,column=MEMBER_ATTENDANCE_COLUMN,value=swap1)
+                    ws_member.cell(row=i+2,column=MEMBER_NAME_COLUMN,value=swap2)
+                    ws_member.cell(row=i+2,column=MEMBER_SEX_COLUMN,value=swap3)
+                    ws_member.cell(row=i+2,column=MEMBER_LEVEL_COLUMN,value=swap4)
+                    ws_member.cell(row=i+2,column=MEMBER_DOUBLES_COLUMN,value=swap5)
+                    ws_member.cell(row=i+2,column=MEMBER_SINGLES_COLUMN,value=swap6)
+                    ws_member.cell(row=i+2,column=MEMBER_MIXED_COLUMN,value=swap7)
+                    ws_member.cell(row=i+2,column=MEMBER_STATUS_COLUMN,value=swap8)
+                    ws_member.cell(row=i+2,column=MEMBER_POINT_COLUMN,value=swap9)
+                    ws_member.cell(row=i+2,column=MEMBER_NOT_COLUMN,value=swap10)
+                    min_value=swap9
     wb.save("data.xlsx")
 
 ###########################################
@@ -115,28 +165,28 @@ def member_sort():
 ###########################################
 def status_reset():
     for number in range(30):
-        if ws_member.cell(row=(number+1),column=2).value==None:
+        if ws_member.cell(row=(number+1),column=MEMBER_NAME_COLUMN).value==None:
             break
         #一旦待機にして、間違っていれば上書きする
-        ws_member.cell(row=(number+1),column=7,value="待機")
+        ws_member.cell(row=(number+1),column=MEMBER_STATUS_COLUMN,value="待機")
 
         #Aコートか確認
         for number2 in range(4):
-            if ws_court.cell(row=(number2+1),column=2).value==ws_member.cell(row=(number+1),column=2).value:
-                ws_member.cell(row=(number+1),column=7,value="Aコート")
+            if ws_court.cell(row=(number2+1),column=COURT_NAMEA_COLUMN).value==ws_member.cell(row=(number+1),column=MEMBER_NAME_COLUMN).value:
+                ws_member.cell(row=(number+1),column=MEMBER_STATUS_COLUMN,value="Aコート")
         #Bコートか確認
         for number2 in range(4):
-            if ws_court.cell(row=(number2+1),column=4).value==ws_member.cell(row=(number+1),column=2).value:
-                ws_member.cell(row=(number+1),column=7,value="Bコート")
+            if ws_court.cell(row=(number2+1),column=COURT_NAMEB_COLUMN).value==ws_member.cell(row=(number+1),column=MEMBER_NAME_COLUMN).value:
+                ws_member.cell(row=(number+1),column=MEMBER_STATUS_COLUMN,value="Bコート")
         #Cコートか確認
         for number2 in range(4):
-            if ws_court.cell(row=(number2+1),column=6).value==ws_member.cell(row=(number+1),column=2).value:
-                ws_member.cell(row=(number+1),column=7,value="Cコート")
+            if ws_court.cell(row=(number2+1),column=COURT_NAMEC_COLUMN).value==ws_member.cell(row=(number+1),column=MEMBER_NAME_COLUMN).value:
+                ws_member.cell(row=(number+1),column=MEMBER_STATUS_COLUMN,value="Cコート")
 
         #休憩か確認
         for number2 in range(len(st.session_state["sorted_data"][1]["items"])):
-            if st.session_state["sorted_data"][1]["items"][number2]==ws_member.cell(row=(number+1),column=2).value:
-                ws_member.cell(row=(number+1),column=7,value="休憩")
+            if st.session_state["sorted_data"][1]["items"][number2]==ws_member.cell(row=(number+1),column=MEMBER_NAME_COLUMN).value:
+                ws_member.cell(row=(number+1),column=MEMBER_STATUS_COLUMN,value="休憩")
     wb.save("data.xlsx")
 
 ###########################################
@@ -144,8 +194,8 @@ def status_reset():
 ###########################################
 def status_update(name,status):
     for number in range(30):
-        if ws_member.cell(row=(number+1),column=2).value==name:
-            ws_member.cell(row=(number+1),column=7,value=status)
+        if ws_member.cell(row=(number+1),column=MEMBER_NAME_COLUMN).value==name:
+            ws_member.cell(row=(number+1),column=MEMBER_STATUS_COLUMN,value=status)
             break
     wb.save("data.xlsx")
 
@@ -154,16 +204,16 @@ def status_update(name,status):
 ###########################################
 def point_add(name,point):
     for number in range(30):
-        if ws_member.cell(row=(number+1),column=2).value==name:
-            if ws_member.cell(row=(number+1),column=8).value==None:
-               ws_member.cell(row=(number+1),column=8,value=point)
+        if ws_member.cell(row=(number+1),column=MEMBER_NAME_COLUMN).value==name:
+            if ws_member.cell(row=(number+1),column=MEMBER_POINT_COLUMN).value==None:
+               ws_member.cell(row=(number+1),column=MEMBER_POINT_COLUMN,value=point)
             else:
-                ws_member.cell(row=(number+1),column=8,value=point+ws_member.cell(row=(number+1),column=8).value)
+                ws_member.cell(row=(number+1),column=MEMBER_POINT_COLUMN,value=point+ws_member.cell(row=(number+1),column=MEMBER_POINT_COLUMN).value)
 
-            if ws_member.cell(row=(number+1),column=9).value==None:
-                ws_member.cell(row=(number+1),column=9,value=1)
+            if ws_member.cell(row=(number+1),column=MEMBER_NOT_COLUMN).value==None:
+                ws_member.cell(row=(number+1),column=MEMBER_NOT_COLUMN,value=1)
             else:
-                ws_member.cell(row=(number+1),column=9,value=1+ws_member.cell(row=(number+1),column=9).value)
+                ws_member.cell(row=(number+1),column=MEMBER_NOT_COLUMN,value=1+ws_member.cell(row=(number+1),column=MEMBER_NOT_COLUMN).value)
             break
     wb.save("data.xlsx")
 
@@ -172,12 +222,12 @@ def point_add(name,point):
 ###########################################
 def history_add(name1,name2,name3,name4,court):
     for number in range(200):
-        if ws_history.cell(row=(number+1),column=2).value==None:
-            ws_history.cell(row=(number+1),column=1,value=name1)
-            ws_history.cell(row=(number+1),column=2,value=name2)
-            ws_history.cell(row=(number+1),column=3,value=name3)
-            ws_history.cell(row=(number+1),column=4,value=name4)
-            ws_history.cell(row=(number+1),column=5,value=court)
+        if ws_history.cell(row=(number+1),column=HISTORY_NAME1_COLUMN).value==None:
+            ws_history.cell(row=(number+1),column=HISTORY_NAME1_COLUMN,value=name1)
+            ws_history.cell(row=(number+1),column=HISTORY_NAME2_COLUMN,value=name2)
+            ws_history.cell(row=(number+1),column=HISTORY_NAME3_COLUMN,value=name3)
+            ws_history.cell(row=(number+1),column=HISTORY_NAME4_COLUMN,value=name4)
+            ws_history.cell(row=(number+1),column=HISTORY_COURT_COLUMN,value=court)
             break
     wb.save("data.xlsx")
 
@@ -188,8 +238,8 @@ def search_level(name):
     if name==None:
         return 0
     for number in range(30):
-        if ws_member.cell(row=(number+2),column=2).value==name:
-            return ws_member.cell(row=(number+2),column=4).value   #レベルを返す
+        if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value==name:
+            return ws_member.cell(row=(number+2),column=MEMBER_LEVEL_COLUMN).value   #レベルを返す
 
     return 0
 
@@ -269,14 +319,15 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="男":
-                if ws_member.cell(row=number+2,column=4).value>=3.8:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.8:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count=count+1
 
     ###################################
     ###上級女子ダブルスの選定
@@ -295,14 +346,15 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="女":
-                if ws_member.cell(row=number+2,column=4).value>=3.8:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.8:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count=count+1
 
     ###################################
     ###中級男子ダブルスの選定
@@ -321,15 +373,16 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="男":
-                if ws_member.cell(row=number+2,column=4).value>=3.3:
-                    if ws_member.cell(row=number+2,column=4).value<=3.7:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                            count=count+1
 
     ###################################
     ###中級女子ダブルスの選定
@@ -348,15 +401,16 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="女":
-                if ws_member.cell(row=number+2,column=4).value>=3.3:
-                    if ws_member.cell(row=number+2,column=4).value<=3.7:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                            count=count+1
 
     ###################################
     ###初級男子ダブルスの選定
@@ -375,15 +429,16 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="男":
-                if ws_member.cell(row=number+2,column=4).value>=2.8:
-                    if ws_member.cell(row=number+2,column=4).value<=3.2:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                            count=count+1
 
     ###################################
     ###初級女子ダブルスの選定
@@ -402,15 +457,16 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="女":
-                if ws_member.cell(row=number+2,column=4).value>=2.8:
-                    if ws_member.cell(row=number+2,column=4).value<=3.2:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                            count=count+1
 
     ###################################
     ###初心者ダブルスの選定
@@ -429,13 +485,14 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=4).value<=2.7:
-                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=2.7:
+                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                    point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                    count=count+1
 
     ###################################
     ###上級ミックスの選定
@@ -457,23 +514,23 @@ def court_sorting(court_name,court_number):
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="男":
-                    if ws_member.cell(row=number+2,column=4).value>=3.8:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.8:
                         if count1<2:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                             count1=count1+1
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="女":
-                    if ws_member.cell(row=number+2,column=4).value>=3.8:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.8:
                         if count2<2:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                             count2=count2+1
 
     ###################################
@@ -496,25 +553,25 @@ def court_sorting(court_name,court_number):
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="男":
-                    if ws_member.cell(row=number+2,column=4).value>=3.3:
-                        if ws_member.cell(row=number+2,column=4).value<=3.7:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
                             if count1<2:
-                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                                 count1=count1+1
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="女":
-                    if ws_member.cell(row=number+2,column=4).value>=3.3:
-                        if ws_member.cell(row=number+2,column=4).value<=3.7:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
                             if count2<2:
-                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                                 count2=count2+1
 
     ###################################
@@ -537,25 +594,25 @@ def court_sorting(court_name,court_number):
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="男":
-                    if ws_member.cell(row=number+2,column=4).value>=2.8:
-                        if ws_member.cell(row=number+2,column=4).value<=3.2:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
                             if count1<2:
-                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                                 count1=count1+1
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="女":
-                    if ws_member.cell(row=number+2,column=4).value>=2.8:
-                        if ws_member.cell(row=number+2,column=4).value<=3.2:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
                             if count2<2:
-                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                                 count2=count2+1
 
     ###################################
@@ -576,14 +633,15 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="男":
-                if ws_member.cell(row=number+2,column=4).value>=3.3:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count=count+1
 
     ###################################
     ###中/上級女子ダブルスの選定
@@ -603,14 +661,15 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="女":
-                if ws_member.cell(row=number+2,column=4).value>=3.3:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count=count+1
 
 
     ###################################
@@ -631,15 +690,16 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="男":
-                if ws_member.cell(row=number+2,column=4).value>=2.8:
-                    if ws_member.cell(row=number+2,column=4).value<=3.7:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                            count=count+1
 
     ###################################
     ###初/中級女子ダブルスの選定
@@ -659,15 +719,16 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="女":
-                if ws_member.cell(row=number+2,column=4).value>=2.8:
-                    if ws_member.cell(row=number+2,column=4).value<=3.7:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                        count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                            count=count+1
 
 
     ###################################
@@ -688,14 +749,15 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="男":
-                if ws_member.cell(row=number+2,column=4).value<=3.2:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count=count+1
 
     ###################################
     ###初/初級女子ダブルスの選定
@@ -715,14 +777,15 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=3).value=="女":
-                if ws_member.cell(row=number+2,column=4).value<=3.2:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count=count+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count=count+1
 
 
     ###################################
@@ -746,23 +809,23 @@ def court_sorting(court_name,court_number):
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="男":
-                    if ws_member.cell(row=number+2,column=4).value>=3.3:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
                         if count1<2:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                             count1=count1+1
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="女":
-                    if ws_member.cell(row=number+2,column=4).value>=3.3:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
                         if count2<2:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                             count2=count2+1
 
     ###################################
@@ -786,25 +849,25 @@ def court_sorting(court_name,court_number):
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="男":
-                    if ws_member.cell(row=number+2,column=4).value>=2.8:
-                        if ws_member.cell(row=number+2,column=4).value<=3.7:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
                             if count1<2:
-                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                                 count1=count1+1
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="女":
-                    if ws_member.cell(row=number+2,column=4).value>=2.8:
-                        if ws_member.cell(row=number+2,column=4).value<=3.7:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
                             if count2<2:
-                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                                 count2=count2+1
 
     ###################################
@@ -828,23 +891,23 @@ def court_sorting(court_name,court_number):
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="男":
-                    if ws_member.cell(row=number+2,column=4).value<=3.2:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="男":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
                         if count1<2:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                             count1=count1+1
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=6).value==1:
-                if ws_member.cell(row=number+2,column=3).value=="女":
-                    if ws_member.cell(row=number+2,column=4).value<=3.2:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value=="女":
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
                         if count2<2:
-                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+                            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                             count2=count2+1
 
 
@@ -867,13 +930,13 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=5).value==1:
-                if ws_member.cell(row=number+2,column=4).value>=3.8:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_SINGLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.8:
+                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                    point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                     count=count+1
 
     ###################################
@@ -894,14 +957,14 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=5).value==1:
-                if ws_member.cell(row=number+2,column=4).value<=3.7:
-                    if ws_member.cell(row=number+2,column=4).value>=3.3:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_SINGLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                         count=count+1
 
     ###################################
@@ -922,14 +985,14 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=5).value==1:
-                if ws_member.cell(row=number+2,column=4).value<=3.2:
-                    if ws_member.cell(row=number+2,column=4).value>=2.8:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_SINGLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.2:
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                         count=count+1
 
 
@@ -952,13 +1015,13 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=5).value==1:
-                if ws_member.cell(row=number+2,column=4).value>=3.3:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_SINGLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                    point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                     count=count+1
 
     ###################################
@@ -980,14 +1043,14 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=5).value==1:
-                if ws_member.cell(row=number+2,column=4).value<=2.8:
-                    if ws_member.cell(row=number+2,column=4).value>=3.7:
-                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                        point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_SINGLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=2.8:
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.7:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                         count=count+1
 
 
@@ -1008,12 +1071,12 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=4).value>=2.8:
-                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=2.8:
+                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                 count=count+1
 
     ###################################
@@ -1032,12 +1095,12 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=4).value<=3.7:
-                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
+                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
                 count=count+1
 
     ###################################
@@ -1056,11 +1119,11 @@ def court_sorting(court_name,court_number):
                 point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                 name_list_candidate=copy.deepcopy(name_list_cache)
                 break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-            point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+            point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
             count=count+1
 
     ###################################
@@ -1082,19 +1145,21 @@ def court_sorting(court_name,court_number):
                     point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                     name_list_candidate=copy.deepcopy(name_list_cache)
                     break
-        if ws_member.cell(row=number+2,column=4).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=4).value>=3.3:
-                if ws_member.cell(row=number+2,column=4).value<=3.7:
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count1=count1+1
-        if ws_member.cell(row=number+2,column=7).value=="待機":
-            if ws_member.cell(row=number+2,column=4).value<=2.7:
-                name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                count2=count2+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value>=3.3:
+                    if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=3.7:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count1=count1+1
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+            if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value<=2.7:
+                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                    point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                    count2=count2+1
     
     ###################################
     ###回数のみ
@@ -1112,12 +1177,13 @@ def court_sorting(court_name,court_number):
                         point_min=point_cache                                                                       #規定人数集まった場合だけ更新するか判断
                         name_list_candidate=copy.deepcopy(name_list_cache)
                         break
-                if ws_member.cell(row=number+2,column=4).value==None:
+                if ws_member.cell(row=number+2,column=MEMBER_LEVEL_COLUMN).value==None:
                     break
-                if ws_member.cell(row=number+2,column=7).value=="待機":
-                    name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=2).value]              #名前をリストに追加     
-                    point_cache=point_cache+ws_member.cell(row=number+2,column=8).value                         #ポイントを加算
-                    count=count+1
+                if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value=="待機":
+                    if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+                        name_list_cache=name_list_cache+[ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value]              #名前をリストに追加     
+                        point_cache=point_cache+ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value                         #ポイントを加算
+                        count=count+1
 
 
     #決定した条件でシートを更新する。
@@ -1143,10 +1209,10 @@ def court_clear(court_name,court_number):
 
     #対象コートに入っていたメンバのステータスを待機にする
     for number in range(30):
-        if ws_member.cell(row=number+2,column=7).value==None:
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value==None:
             break
-        if ws_member.cell(row=number+2,column=7).value==court_name:
-            ws_member.cell(row=number+2,column=7,value="待機")
+        if ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN).value==court_name:
+            ws_member.cell(row=number+2,column=MEMBER_STATUS_COLUMN,value="待機")
     wb.save("data.xlsx")
 
 ##########################################################################################################
@@ -1168,25 +1234,25 @@ col1,col2,col3=st.columns(3)
 if col1.button("Aコート",use_container_width=True):
     #勝敗をエクセルに書き込む
     for number in range(4):
-        ws_court.cell(row=number+2,column=1*2-1,value=st.session_state.winloseA[number])        #Aコート
-        ws_court.cell(row=number+2,column=2*2-1,value=st.session_state.winloseB[number])        #Bコート
-        ws_court.cell(row=number+2,column=3*2-1,value=st.session_state.winloseC[number])        #Cコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEA_COLUMN,value=st.session_state.winloseA[number])        #Aコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEB_COLUMN,value=st.session_state.winloseB[number])        #Bコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEC_COLUMN,value=st.session_state.winloseC[number])        #Cコート
 
     #待機/休憩の状態を変数からエクセルに書き込む
     #メンバの回数だけmemerシートを見てステータスを更新する。
     #待機
     for number2 in range(st.session_state.stanby_member0_num):
         for number in range(30):
-            if ws_member.cell(row=(number+2),column=2).value!=None:
-                if(ws_member.cell(row=(number+2),column=2).value==st.session_state.stanby_member0[number2]):
-                    ws_member.cell(row=(number+2),column=7,value="待機")
+            if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value!=None:
+                if(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value==st.session_state.stanby_member0[number2]):
+                    ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN,value="待機")
                     break
     #待機
     for number2 in range(st.session_state.stanby_member1_num):
         for number in range(30):
-            if ws_member.cell(row=(number+2),column=2).value!=None:
-                if(ws_member.cell(row=(number+2),column=2).value==st.session_state.stanby_member1[number2]):
-                    ws_member.cell(row=(number+2),column=7,value="休憩")
+            if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value!=None:
+                if(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value==st.session_state.stanby_member1[number2]):
+                    ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN,value="休憩")
                     break
     wb.save("data.xlsx")
 
@@ -1197,24 +1263,24 @@ if col1.button("Aコート",use_container_width=True):
 if col2.button("Bコート",use_container_width=True):
     #勝敗をエクセルに書き込む
     for number in range(4):
-        ws_court.cell(row=number+2,column=1*2-1,value=st.session_state.winloseA[number])        #Aコート
-        ws_court.cell(row=number+2,column=2*2-1,value=st.session_state.winloseB[number])        #Bコート
-        ws_court.cell(row=number+2,column=3*2-1,value=st.session_state.winloseC[number])        #Cコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEA_COLUMN,value=st.session_state.winloseA[number])        #Aコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEB_COLUMN,value=st.session_state.winloseB[number])        #Bコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEC_COLUMN,value=st.session_state.winloseC[number])        #Cコート
     #待機/休憩の状態を変数からエクセルに書き込む
     #メンバの回数だけmemerシートを見てステータスを更新する。
     #待機
     for number2 in range(st.session_state.stanby_member0_num):
         for number in range(30):
-            if ws_member.cell(row=(number+2),column=2).value!=None:
-                if(ws_member.cell(row=(number+2),column=2).value==st.session_state.stanby_member0[number2]):
-                    ws_member.cell(row=(number+2),column=7,value="待機")
+            if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value!=None:
+                if(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value==st.session_state.stanby_member0[number2]):
+                    ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN,value="待機")
                     break
     #待機
     for number2 in range(st.session_state.stanby_member1_num):
         for number in range(30):
-            if ws_member.cell(row=(number+2),column=2).value!=None:
-                if(ws_member.cell(row=(number+2),column=2).value==st.session_state.stanby_member1[number2]):
-                    ws_member.cell(row=(number+2),column=7,value="休憩")
+            if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value!=None:
+                if(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value==st.session_state.stanby_member1[number2]):
+                    ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN,value="休憩")
                     break
     wb.save("data.xlsx")
 
@@ -1225,24 +1291,24 @@ if col2.button("Bコート",use_container_width=True):
 if col3.button("Cコート",use_container_width=True):
     #勝敗をエクセルに書き込む
     for number in range(4):
-        ws_court.cell(row=number+2,column=1*2-1,value=st.session_state.winloseA[number])        #Aコート
-        ws_court.cell(row=number+2,column=2*2-1,value=st.session_state.winloseB[number])        #Bコート
-        ws_court.cell(row=number+2,column=3*2-1,value=st.session_state.winloseC[number])        #Cコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEA_COLUMN,value=st.session_state.winloseA[number])        #Aコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEB_COLUMN,value=st.session_state.winloseB[number])        #Bコート
+        ws_court.cell(row=number+2,column=COURT_WINLOSEC_COLUMN,value=st.session_state.winloseC[number])        #Cコート
     #待機/休憩の状態を変数からエクセルに書き込む
     #メンバの回数だけmemerシートを見てステータスを更新する。
     #待機
     for number2 in range(st.session_state.stanby_member0_num):
         for number in range(30):
-            if ws_member.cell(row=(number+2),column=2).value!=None:
-                if(ws_member.cell(row=(number+2),column=2).value==st.session_state.stanby_member0[number2]):
-                    ws_member.cell(row=(number+2),column=7,value="待機")
+            if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value!=None:
+                if(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value==st.session_state.stanby_member0[number2]):
+                    ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN,value="待機")
                     break
     #待機
     for number2 in range(st.session_state.stanby_member1_num):
         for number in range(30):
-            if ws_member.cell(row=(number+2),column=2).value!=None:
-                if(ws_member.cell(row=(number+2),column=2).value==st.session_state.stanby_member1[number2]):
-                    ws_member.cell(row=(number+2),column=7,value="休憩")
+            if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value!=None:
+                if(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value==st.session_state.stanby_member1[number2]):
+                    ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN,value="休憩")
                     break
     wb.save("data.xlsx")
 
@@ -1253,37 +1319,37 @@ if col3.button("Cコート",use_container_width=True):
 
 for number in range(4):
     if number==0:
-        if ws_court.cell(row=number+2,column=1).value==1:
+        if ws_court.cell(row=number+2,column=COURT_WINLOSEA_COLUMN).value==1:
             df["勝敗A"]=True
         else:
             df["勝敗A"]=False
-        df["メンバA"]=ws_court.cell(row=number+2,column=2).value
-        if ws_court.cell(row=number+2,column=3).value==1:
+        df["メンバA"]=ws_court.cell(row=number+2,column=COURT_NAMEA_COLUMN).value
+        if ws_court.cell(row=number+2,column=COURT_WINLOSEB_COLUMN).value==1:
             df["勝敗B"]=True
         else:
             df["勝敗B"]=False
-        df["メンバB"]=ws_court.cell(row=number+2,column=4).value
-        if ws_court.cell(row=number+2,column=5).value==1:
+        df["メンバB"]=ws_court.cell(row=number+2,column=COURT_NAMEB_COLUMN).value
+        if ws_court.cell(row=number+2,column=COURT_WINLOSEC_COLUMN).value==1:
             df["勝敗C"]=True
         else:
             df["勝敗C"]=False
-        df["メンバC"]=ws_court.cell(row=number+2,column=6).value
+        df["メンバC"]=ws_court.cell(row=number+2,column=COURT_NAMEC_COLUMN).value
     else:
-        if ws_court.cell(row=number+2,column=1).value==1:
+        if ws_court.cell(row=number+2,column=COURT_WINLOSEA_COLUMN).value==1:
             df_cache["勝敗A"]=True
         else:
             df_cache["勝敗A"]=False
-        df_cache["メンバA"]=ws_court.cell(row=number+2,column=2).value
-        if ws_court.cell(row=number+2,column=3).value==1:
+        df_cache["メンバA"]=ws_court.cell(row=number+2,column=COURT_NAMEA_COLUMN).value
+        if ws_court.cell(row=number+2,column=COURT_WINLOSEB_COLUMN).value==1:
             df_cache["勝敗B"]=True
         else:
             df_cache["勝敗B"]=False
-        df_cache["メンバB"]=ws_court.cell(row=number+2,column=4).value
-        if ws_court.cell(row=number+2,column=5).value==1:
+        df_cache["メンバB"]=ws_court.cell(row=number+2,column=COURT_NAMEB_COLUMN).value
+        if ws_court.cell(row=number+2,column=COURT_WINLOSEC_COLUMN).value==1:
             df_cache["勝敗C"]=True
         else:
             df_cache["勝敗C"]=False
-        df_cache["メンバC"]=ws_court.cell(row=number+2,column=6).value
+        df_cache["メンバC"]=ws_court.cell(row=number+2,column=COURT_NAMEC_COLUMN).value
 
         df=pd.concat([df,df_cache],ignore_index=True)
 
@@ -1309,11 +1375,11 @@ if 'stanby_member0' not in st.session_state:
     st.session_state.stanby_member1_num=0
 
 for number in range(30):
-    if ws_member.cell(row=(number+2),column=2).value!=None:
-        if(ws_member.cell(row=(number+2),column=7).value=="待機"):
-            stanby_member_original[0]["items"].append(ws_member.cell(row=(number+2),column=2).value)
-        if(ws_member.cell(row=(number+2),column=7).value=="休憩"):
-            stanby_member_original[1]["items"].append(ws_member.cell(row=(number+2),column=2).value)
+    if ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value!=None:
+        if(ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN).value=="待機"):
+            stanby_member_original[0]["items"].append(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value)
+        if(ws_member.cell(row=(number+2),column=MEMBER_STATUS_COLUMN).value=="休憩"):
+            stanby_member_original[1]["items"].append(ws_member.cell(row=(number+2),column=MEMBER_NAME_COLUMN).value)
     else:
         break
 
@@ -1343,12 +1409,11 @@ if st.button("履歴の削除"):
     for row in ws_history:
         for cell in row :
             cell.value = None
-    ws_history.cell(row=1,column=1,value="名前1")
-    ws_history.cell(row=1,column=2,value="名前2")
-    ws_history.cell(row=1,column=3,value="名前3")
-    ws_history.cell(row=1,column=4,value="名前4")
-    ws_history.cell(row=1,column=5,value="コート")
-
+    ws_history.cell(row=1,column=HISTORY_NAME1_COLUMN,value="名前1")
+    ws_history.cell(row=1,column=HISTORY_NAME2_COLUMN,value="名前2")
+    ws_history.cell(row=1,column=HISTORY_NAME3_COLUMN,value="名前3")
+    ws_history.cell(row=1,column=HISTORY_NAME4_COLUMN,value="名前4")
+    ws_history.cell(row=1,column=HISTORY_COURT_COLUMN,value="コート")
     wb.save("data.xlsx")
 
 df = pd.read_excel(r'data.xlsx',sheet_name='history')
