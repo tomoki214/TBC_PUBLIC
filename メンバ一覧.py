@@ -17,6 +17,19 @@ st.image("OpenChat.png")
 
 wb=openpyxl.load_workbook("data.xlsx",data_only=True)
 ws_member=wb["member"]
+#############################
+#メンバーシートの列定義
+#############################
+#MEMBER_ATTENDANCE_COLUMN=1
+MEMBER_NAME_COLUMN=2
+MEMBER_SEX_COLUMN=3
+#MEMBER_LEVEL_COLUMN=4
+MEMBER_DOUBLES_COLUMN=5
+MEMBER_SINGLES_COLUMN=6
+MEMBER_MIXED_COLUMN=7
+#MEMBER_STATUS_COLUMN=8
+MEMBER_POINT_COLUMN=9
+MEMBER_NOT_COLUMN=10
 
 ##########################################################################################################
 #画面の読み取り
@@ -24,34 +37,41 @@ ws_member=wb["member"]
 df = pd.DataFrame([{}])
 df_cache = pd.DataFrame([{}])
 
-
 for number in range(30):
-    if ws_member.cell(row=number+2,column=2).value==None:
+    if ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value==None:
         break
 
     if number==0:
-        df["名前"]=ws_member.cell(row=number+2,column=2).value
-        df["性別"]=ws_member.cell(row=number+2,column=3).value
-        df["ポイント"]=ws_member.cell(row=number+2,column=8).value
-        df["回数"]=ws_member.cell(row=number+2,column=9).value
-        if ws_member.cell(row=number+2,column=5).value==1:
+        df["名前"]=ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value
+        df["性別"]=ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value
+        df["ポイント"]=ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value
+        df["回数"]=ws_member.cell(row=number+2,column=MEMBER_NOT_COLUMN).value
+        if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+            df["ダブルス"]=True
+        else:
+            df["ダブルス"]=False
+        if ws_member.cell(row=number+2,column=MEMBER_SINGLES_COLUMN).value==1:
             df["シングルス"]=True
         else:
             df["シングルス"]=False
-        if ws_member.cell(row=number+2,column=6).value==1:
+        if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
             df["ミックス"]=True
         else:
             df["ミックス"]=False
     else:
-        df_cache["名前"]=ws_member.cell(row=number+2,column=2).value
-        df_cache["性別"]=ws_member.cell(row=number+2,column=3).value
-        df_cache["ポイント"]=ws_member.cell(row=number+2,column=8).value
-        df_cache["回数"]=ws_member.cell(row=number+2,column=9).value
-        if ws_member.cell(row=number+2,column=5).value==1:
+        df_cache["名前"]=ws_member.cell(row=number+2,column=MEMBER_NAME_COLUMN).value
+        df_cache["性別"]=ws_member.cell(row=number+2,column=MEMBER_SEX_COLUMN).value
+        df_cache["ポイント"]=ws_member.cell(row=number+2,column=MEMBER_POINT_COLUMN).value
+        df_cache["回数"]=ws_member.cell(row=number+2,column=MEMBER_NOT_COLUMN).value
+        if ws_member.cell(row=number+2,column=MEMBER_DOUBLES_COLUMN).value==1:
+            df_cache["ダブルス"]=True
+        else:
+            df_cache["ダブルス"]=False
+        if ws_member.cell(row=number+2,column=MEMBER_SINGLES_COLUMN).value==1:
             df_cache["シングルス"]=True
         else:
             df_cache["シングルス"]=False
-        if ws_member.cell(row=number+2,column=6).value==1:
+        if ws_member.cell(row=number+2,column=MEMBER_MIXED_COLUMN).value==1:
             df_cache["ミックス"]=True
         else:
             df_cache["ミックス"]=False
@@ -67,13 +87,14 @@ if col2.button("セーブ",use_container_width=True):
     for number1 in range(len(df)):
         for number2 in range(len(df)):
             #名前が一致したら上書き修正
-            if edited_df.iat[number1,0]==ws_member.cell(row=number2+2,column=2).value:
-                ws_member.cell(row=number2+2,column=2,value=edited_df.iat[number1,0])#名前
-                ws_member.cell(row=number2+2,column=3,value=edited_df.iat[number1,1])#性別
-                ws_member.cell(row=number2+2,column=8,value=edited_df.iat[number1,2])#ポイント
-                ws_member.cell(row=number2+2,column=9,value=edited_df.iat[number1,3])#回数
-                ws_member.cell(row=number2+2,column=5,value=edited_df.iat[number1,4])#シングルス
-                ws_member.cell(row=number2+2,column=6,value=edited_df.iat[number1,5])#ミックス
+            if edited_df.iat[number1,0]==ws_member.cell(row=number2+2,column=MEMBER_NAME_COLUMN).value:
+                ws_member.cell(row=number2+2,column=MEMBER_NAME_COLUMN,value=edited_df.iat[number1,0])#名前
+                ws_member.cell(row=number2+2,column=MEMBER_SEX_COLUMN,value=edited_df.iat[number1,1])#性別
+                ws_member.cell(row=number2+2,column=MEMBER_POINT_COLUMN,value=edited_df.iat[number1,2])#ポイント
+                ws_member.cell(row=number2+2,column=MEMBER_NOT_COLUMN,value=edited_df.iat[number1,3])#回数
+                ws_member.cell(row=number2+2,column=MEMBER_DOUBLES_COLUMN,value=edited_df.iat[number1,4])#ダブルス
+                ws_member.cell(row=number2+2,column=MEMBER_SINGLES_COLUMN,value=edited_df.iat[number1,5])#シングルス
+                ws_member.cell(row=number2+2,column=MEMBER_MIXED_COLUMN,value=edited_df.iat[number1,6])#ミックス
                 break
 
     wb.save("data.xlsx")
